@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhg.javakc.modules.operation.pconfig.dao.PconfigDao">
+<select id="findList" resultType="com.zhg.javakc.modules.operation.pconfig.entity.PconfigEntity">
+SELECT EVENT_NO AS eventNo, PROMOTION_STATE AS promotionState, AUDIT_STATE AS auditState,EVENT_NAME AS eventName, PROMOTION_OFFER AS promotionOffer,
+PROMOTION_SDATE AS promotionSdate,PROMOTION_EDATE AS promotionEdate,PROMOTION_SORT AS promotionSort,EVENT_DESCRIBE AS eventDescribe,
+CREATER AS creater,CREATE_TIME AS createTime,NUDITOR AS nuditor,NUDIT_TIME AS nuditTime,EVENT_TYPE AS eventType FROM PROMOTION_CONFIG
+WHERE 1=1
+    <if test="eventName!='' and eventName!=null">
+        AND EVENT_NAME LIKE '%'||#{eventName}||'%'
+    </if>
+</select>
+
+    <update id="update">
+        UPDATE PROMOTION_CONFIG SET EVENT_NO=#{eventNo}, PROMOTION_STATE=#{promotionState},
+         AUDIT_STATE=#{auditState}, EVENT_NAME=#{eventName},PROMOTION_OFFER=#{promotionOffer},
+        PROMOTION_SDATE=#{promotionSdate},PROMOTION_EDATE=#{promotionEdate},PROMOTION_SORT=#{promotionSort},EVENT_DESCRIBE=#{eventDescribe},
+        CREATER=#{creater},CREATE_TIME=#{createTime},NUDITOR=#{nuditor},NUDIT_TIME=#{nuditTime}, EVENT_TYPE=#{eventType}
+        WHERE EVENT_NO=#{eventNo}
+    </update>
+
+    <insert id="insert">
+        INSERT INTO PROMOTION_CONFIG (EVENT_NO, PROMOTION_STATE, AUDIT_STATE, EVENT_NAME,PROMOTION_OFFER,
+        PROMOTION_SDATE,PROMOTION_EDATE,PROMOTION_SORT,EVENT_DESCRIBE,CREATER,CREATE_TIME,NUDITOR,NUDIT_TIME,EVENT_TYPE)
+        VALUES (#{eventNo}, #{promotionState}, #{auditState}, #{eventName},#{promotionOffer},
+        #{promotionSdate},#{promotionEdate},#{promotionSort},#{eventDescribe},#{creater},#{createTime},
+        #{nuditor},#{nuditTime},#{eventType})
+    </insert>
+
+    <select id="get" resultType="com.zhg.javakc.modules.operation.pconfig.entity.PconfigEntity">
+SELECT EVENT_NO AS eventNo, PROMOTION_STATE AS promotionState, AUDIT_STATE AS auditState,EVENT_NAME AS eventName, PROMOTION_OFFER AS promotionOffer,
+PROMOTION_SDATE AS promotionSdate,PROMOTION_EDATE AS promotionEdate,PROMOTION_SORT AS promotionSort,EVENT_DESCRIBE AS eventDescribe,
+CREATER AS creater,CREATE_TIME AS createTime,NUDITOR AS nuditor,NUDIT_TIME AS nuditTime,EVENT_TYPE AS eventType FROM PROMOTION_CONFIG
+WHERE EVENT_NO=#{0}
+    </select>
+
+    <delete id="delete">
+        DELETE FROM PROMOTION_CONFIG WHERE EVENT_NO IN
+        <foreach collection="array" item="id" open="(" separator="," close=")" >
+            #{id}
+        </foreach>
+    </delete>
+
+<!--    <delete id="del">-->
+<!--        DELETE FROM PROMOTION_CONFIG WHERE EVENT_NO=#{0}-->
+
+<!--    </delete>-->
+
+
+
+</mapper>

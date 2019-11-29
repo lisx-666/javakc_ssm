@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhg.javakc.modules.operation.coupons.dao.CouponsDao">
+
+    <select id="findList" resultType="com.zhg.javakc.modules.operation.coupons.entity.CouponsEntity">
+        SELECT COUPONS_ID AS couponsId, COUPONS_NAME AS couponsName, COUPONS_TYPE AS couponsType,
+        COUPONS_VALUE AS couponsValue,TOTAL_ISSUES AS totalIssues,USE_RULE AS useRule,COUPONS_SUPPORT AS couponsSupport,
+        COUPONS_SDATE AS couponsSdate,COUPONS_EDATE AS couponsEdate,EFFECT_DAY AS effectDay,USE_RANGE AS useRange
+        FROM COUPONS_ADD WHERE 1=1
+        <if test="couponsName!='' and couponsName!=null">
+            AND COUPONS_NAME LIKE '%'||#{couponsName}||'%'
+        </if>
+    </select>
+
+    <insert id="insert">
+        INSERT INTO COUPONS_ADD (COUPONS_ID, COUPONS_NAME, COUPONS_TYPE, COUPONS_VALUE,TOTAL_ISSUES,
+        USE_RULE,COUPONS_SUPPORT,COUPONS_SDATE,COUPONS_EDATE,EFFECT_DAY,USE_RANGE)
+        VALUES (#{couponsId}, #{couponsName}, #{couponsType}, #{couponsValue},
+        #{totalIssues},#{useRule},#{couponsSupport},#{couponsSdate},#{couponsEdate},#{effectDay},#{useRange})
+    </insert>
+
+    <select id="get" resultType="com.zhg.javakc.modules.operation.coupons.entity.CouponsEntity">
+        SELECT COUPONS_ID AS couponsId, COUPONS_NAME AS couponsName, COUPONS_TYPE AS couponsType,
+        COUPONS_VALUE AS couponsValue,TOTAL_ISSUES AS totalIssues,USE_RULE AS useRule,COUPONS_SUPPORT AS couponsSupport,
+        COUPONS_SDATE AS couponsSdate,COUPONS_EDATE AS couponsEdate,EFFECT_DAY AS effectDay,USE_RANGE AS useRange
+        FROM COUPONS_ADD WHERE COUPONS_ID=#{0}
+    </select>
+
+    <update id="update">
+        UPDATE COUPONS_ADD SET COUPONS_ID=#{couponsId}, COUPONS_NAME=#{couponsName},
+         COUPONS_TYPE=#{couponsType}, COUPONS_VALUE=#{couponsValue},TOTAL_ISSUES=#{totalIssues},
+        USE_RULE=#{useRule},COUPONS_SUPPORT=#{couponsSupport},COUPONS_SDATE=#{couponsSdate},
+        COUPONS_EDATE=#{couponsEdate},EFFECT_DAY=#{effectDay},USE_RANGE=#{useRange}
+        WHERE COUPONS_ID=#{couponsId}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM COUPONS_ADD WHERE COUPONS_ID IN
+        <foreach collection="array" item="id" open="(" separator="," close=")" >
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>
