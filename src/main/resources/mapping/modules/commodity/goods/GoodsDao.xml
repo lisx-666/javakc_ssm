@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhg.javakc.modules.commodity.goods.dao.GoodsDao">
+
+    <select id="findList" resultType="com.zhg.javakc.modules.commodity.goods.entity.GoodsEntity">
+        SELECT GOODS_NAME AS gName, GOODS_ID AS gId, CATEGORY_ID AS categoryId, GOODS_NUMBER AS gNumber, GOODS_CPRICE AS gCprice,
+            GOODS_XPRICE AS gXprice, GOODS_CHPRICE AS gChprice, GOODS_COMMENT AS gComment, GOODS_COUNT AS gCount, GOODS_RETURN AS gReturn,
+            GOODS_KEYS AS gKeys, SUPPLIER_ID AS supplierId, GOODS_SAVE AS gSave, GOODS_BRAND AS gBrand, GOODS_ORIGIN AS gOrigin,
+            GOODS_WATER AS gWater, GOODS_WEIGHT AS gWeight, GOODS_LIFE AS gLife, GOODS_PACKAGE AS  gPackage,GOODS_UNIT AS gUnit,
+            GOODS_IMAGE AS gImage, GOODS_DETAILS AS gDetails, TAG_ID AS tagId, GOODS_STATUS AS  gStatus
+        FROM GOODS WHERE 1=1
+        <!--商品名称模糊查询-->
+        <if test="gName!='' and gName!=null">
+            AND GOODS_NAME LIKE '%'||#{gName}||'%'
+        </if>
+        <!--商品编号模糊查询-->
+        <if test="gNumber!='' and gNumber!=null">
+            AND GOODS_NUMBER LIKE '%'||#{gNumber}||'%'
+        </if>
+    </select>
+</mapper>
+
+
+
+
+
+
+

@@ -1,4 +1,7 @@
 package com.zhg.javakc.modules.commodity.goods.dao;
 
-public interface GoodsDao {
+import com.zhg.javakc.base.dao.BaseDao;
+import com.zhg.javakc.modules.commodity.goods.entity.GoodsEntity;
+
+public interface GoodsDao extends BaseDao<GoodsEntity> {
 }
